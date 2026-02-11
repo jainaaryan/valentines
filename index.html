@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 Valentine's Day 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 135, 0.3);
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+            min-height: 380px;
+        }
+
+        h1 {
+            color: #ff1744;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 23, 68, 0.1);
+        }
+
+        .heart {
+            font-size: 3em;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+        }
+
+        .question {
+            color: #333;
+            font-size: 1.8em;
+            margin: 40px 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .no-btn.moving {
+            position: absolute;
+        }
+
+        .no-btn:hover {
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="question">Niharika,<br><br>Will you be my valentine? 🌹</p>
+        <div class="buttons">
+            <button class="yes-btn" onclick="handleYes()">Yes</button>
+            <button class="no-btn" onclick="handleNo()">No</button>
+        </div>
+    </div>
+
+    <script>
+        function handleYes() {
+            alert("Yay! 💕 I'm so happy! 🎉");
+        }
+
+        function handleNo() {
+            alert("Oh no! 💔 Maybe next time...");
+        }
+
+        const noBtn = document.querySelector('.no-btn');
+        const yesBtn = document.querySelector('.yes-btn');
+        const container = document.querySelector('.container');
+
+        noBtn.addEventListener('mouseenter', moveButton);
+
+        function moveButton() {
+            // Switch to absolute positioning if not already
+            if (!noBtn.classList.contains('moving')) {
+                const noBtnRect = noBtn.getBoundingClientRect();
+                const yesBtnRect = yesBtn.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+
+                // Lock both buttons in their current positions
+                yesBtn.style.position = 'absolute';
+                yesBtn.style.left = (yesBtnRect.left - containerRect.left) + 'px';
+                yesBtn.style.top = (yesBtnRect.top - containerRect.top) + 'px';
+
+                noBtn.style.left = (noBtnRect.left - containerRect.left) + 'px';
+                noBtn.style.top = (noBtnRect.top - containerRect.top) + 'px';
+                noBtn.classList.add('moving');
+            }
+
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            const padding = 20;
+            const maxX = container.offsetWidth - btnWidth - padding;
+            const maxY = container.offsetHeight - btnHeight - padding;
+            const minDistance = 150;
+
+            let newX, newY, attempts = 0;
+
+            do {
+                newX = Math.random() * (maxX - padding) + padding;
+                newY = Math.random() * (maxY - padding) + padding;
+                attempts++;
+
+                const currentX = parseFloat(noBtn.style.left) || 0;
+                const currentY = parseFloat(noBtn.style.top) || 0;
+                const distance = Math.sqrt(Math.pow(newX - currentX, 2) + Math.pow(newY - currentY, 2));
+
+                if (distance >= minDistance) break;
+            } while (attempts < 30);
+
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+        }
+    </script>
+</body>
+</html>
