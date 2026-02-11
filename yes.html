@@ -26,9 +26,9 @@
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(255, 105, 135, 0.3);
             text-align: center;
-            max-width: 1000px;
+            width: 500px;
+            height: 450px;
             position: relative;
-            min-height: 380px;
         }
 
         .message {
@@ -36,21 +36,54 @@
             font-size: 1.8em;
             font-weight: bold;
             margin-bottom: 30px;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 0.6s ease-out 1.5s forwards;
         }
 
         .gif-container {
             width: 100%;
-            max-width: 300px;
+            height: 300px;
             margin: 0 auto;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 0.6s ease-out 2s forwards;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .gif-container img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             border-radius: 15px;
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            60% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Background music -->
+    <iframe
+        style="display:none;"
+        src="https://www.youtube.com/embed/4yZ-mn0u8NE?autoplay=1&start=45&controls=0&loop=1&playlist=4yZ-mn0u8NE"
+        allow="autoplay"
+        allowfullscreen>
+    </iframe>
+
     <div class="container">
         <p class="message">I knew you'd say Yes!! 😍🥰</p>
         <div class="gif-container">
@@ -58,13 +91,44 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
+        // Confetti on page load
+        window.addEventListener('load', function() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            // Additional bursts
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+            }, 200);
+
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+            }, 400);
+        });
+
         const gifs = [
-            'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmEyeHd4ZG0yOW1xZm55eDViYzV2ZWZ2Ym1haWtndWVoamZ5Zjc5NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bDr2n9RpIIvAW6BtbT/giphy.gif',
             'https://media.giphy.com/media/h2iLgurYVLwWs/giphy.gif',
+            'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmEyeHd4ZG0yOW1xZm55eDViYzV2ZWZ2Ym1haWtndWVoamZ5Zjc5NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bDr2n9RpIIvAW6BtbT/giphy.gif',
             'https://media.giphy.com/media/H0BSqNPEinl8k/giphy.gif',
             'https://media.giphy.com/media/tfeBZQCErlj7FantMq/giphy.gif',
             'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3RjdHdzc2h6bGJkMDRsc2VnM2pjNGsyeDh1NWpid3ZlMWRkcnc3MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0ErWhCIZQF867I7S/giphy.gif'
+            , 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXFzZjN1eWRjanJxa2JxOThvZGR5Mmo5OGJ0a2YzaHBtcmtld3pleSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7Gr9aOdEAVFrb7112Z/giphy.gif'
+            , 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTNldHh2Zm9sOHR3dHpmeGszNDBjdnJxODg1Yml6MmwzdXh5ZmdhNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ofSB7T8CBH7nP0nS0/giphy.gif'
         ];
 
         let currentIndex = 0;
@@ -76,7 +140,7 @@
         }
 
         // Change gif every 1.4 seconds
-        setInterval(changeGif, 1400);
+        setInterval(changeGif, 2000);
     </script>
 </body>
 </html>

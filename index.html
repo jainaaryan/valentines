@@ -55,11 +55,32 @@
             font-weight: bold;
         }
 
+        .name {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.5s forwards;
+        }
+
+        .ask {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 1.3s forwards;
+        }
+
         .buttons {
             display: flex;
             gap: 20px;
             justify-content: center;
             margin-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         button {
@@ -71,6 +92,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 2.1s forwards;
         }
 
         .yes-btn {
@@ -99,7 +122,10 @@
 </head>
 <body>
     <div class="container">
-        <p class="question">Niharika,<br><br>Will you be my valentine? 🌹</p>
+        <p class="question">
+            <span class="name">Niharika,</span><br><br>
+            <span class="ask">Will you be my valentine? 🌹</span>
+        </p>
         <div class="buttons">
             <button class="yes-btn" onclick="handleYes()">Yes</button>
             <button class="no-btn" onclick="handleNo()">No</button>
